@@ -1,6 +1,14 @@
 {
     "name": "QMK Firmware Environment",
     "image": "ghcr.io/qmk/qmk_cli",
+    "remoteUser": "vscode",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:1": {
+            "installZsh": false,
+            "configureZshAsDefaultShell": false,
+            "upgradePackages": true
+        }
+    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -10,7 +18,10 @@
             ]
         }
     },
-    // This ets up QMK automatically
-    "postCreateCommand": "qmk setup -y",
-    "remoteUser": "root"
+    "remoteEnv": {
+        "QMK_HOME": "${containerWorkspaceFolder}",
+        "BASH_ENV": "~/.bashrc"
+    },
+    // This sets up QMK automatically
+    "postCreateCommand": "qmk config user.qmk_home=$QMK_HOME && echo 'source /usr/share/bash-completion/completions/git' >> ~/.bashrc"
 }
