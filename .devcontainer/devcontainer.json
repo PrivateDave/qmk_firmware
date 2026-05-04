@@ -18,10 +18,14 @@
             ]
         }
     },
+    "runArgs": [
+        "--privileged",
+        "--device=/dev/bus/usb:/dev/bus/usb"
+    ],
     "remoteEnv": {
         "QMK_HOME": "${containerWorkspaceFolder}",
         "BASH_ENV": "~/.bashrc"
     },
     // This sets up QMK automatically
-    "postCreateCommand": "qmk config user.qmk_home=$QMK_HOME && echo 'source /usr/share/bash-completion/completions/git' >> ~/.bashrc"
+    "postCreateCommand": "sudo apt update && sudo apt install -y usbutils && qmk config user.qmk_home=$QMK_HOME && echo 'source /usr/share/bash-completion/completions/git' >> ~/.bashrc"
 }
